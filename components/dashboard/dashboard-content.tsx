@@ -6,6 +6,7 @@ import { MetricsOverview } from './metrics-overview';
 import { ChartsSection } from './charts-section';
 import { CampaignsTable } from './campaigns-table';
 import { PageHeader } from './page-header';
+import { InsightsBanner } from './insights-banner';
 import { Skeleton } from '@/components/ui/skeleton';
 import { generateMockData } from '@/lib/mock-data';
 import type { DashboardData, DateRange } from '@/lib/types';
@@ -14,26 +15,41 @@ export function DashboardContent() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState<DateRange>('last6months');
+  const [customDateRange, setCustomDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>({
+    from: undefined,
+    to: undefined
+  });
 
   useEffect(() => {
     // Initial data load
     const loadData = () => {
       setIsLoading(true);
       setTimeout(() => {
-        setData(generateMockData(dateRange));
+        const customRange = customDateRange.from && customDateRange.to ? customDateRange : undefined;
+        setData(generateMockData(dateRange, customRange));
         setIsLoading(false);
       }, 1500); // Updated to 1.5 seconds
     };
 
     loadData();
 
-    // Real-time updates every 10 seconds
+    // Real-time updates every 10 seconds (only when not using custom date range)
     const interval = setInterval(() => {
-      setData(generateMockData(dateRange));
+      if (!customDateRange.from || !customDateRange.to) {
+        const customRange = customDateRange.from && customDateRange.to ? customDateRange : undefined;
+        setData(generateMockData(dateRange, customRange));
+      }
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [dateRange]);
+  }, [dateRange, customDateRange]);
+
+  const handleCustomDateRangeChange = (range: { from: Date | undefined; to: Date | undefined }) => {
+    setCustomDateRange(range);
+    if (range.from && range.to) {
+      setDateRange('custom');
+    }
+  };
 
   return (
     <motion.div
@@ -57,6 +73,13 @@ export function DashboardContent() {
         <PageHeader campaigns={data?.campaigns} />
       )}
       
+      {/* Dynamic Insights Banner */}
+      <InsightsBanner 
+        campaigns={data?.campaigns} 
+        metrics={data?.metrics} 
+        isLoading={isLoading} 
+      />
+      
       <MetricsOverview metrics={data?.metrics} isLoading={isLoading} />
       
       <ChartsSection 
@@ -64,6 +87,8 @@ export function DashboardContent() {
         isLoading={isLoading}
         dateRange={dateRange}
         onDateRangeChange={setDateRange}
+        customDateRange={customDateRange}
+        onCustomDateRangeChange={handleCustomDateRangeChange}
       />
       
       <CampaignsTable campaigns={data?.campaigns} isLoading={isLoading} />

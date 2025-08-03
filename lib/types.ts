@@ -12,7 +12,7 @@ export interface Metrics {
 export interface Campaign {
   id: string;
   name: string;
-  status: 'active' | 'paused';
+  status: 'active' | 'paused' | 'completed';
   clicks: number;
   conversions: number;
   roi: number;

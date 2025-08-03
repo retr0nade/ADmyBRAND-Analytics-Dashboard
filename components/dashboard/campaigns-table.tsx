@@ -1,6 +1,10 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Table,
   TableBody,
@@ -9,28 +13,53 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowUpDown, Filter, MoreHorizontal } from 'lucide-react';
+import { Search, Filter } from 'lucide-react';
 import type { Campaign } from '@/lib/types';
+import { CampaignDetailsDrawer } from './campaign-details-drawer';
 
 interface CampaignsTableProps {
   campaigns?: Campaign[];
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export function CampaignsTable({ campaigns, isLoading }: CampaignsTableProps) {
-  const [sortBy, setSortBy] = useState<keyof Campaign>('name');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'paused'>('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const filteredCampaigns = useMemo(() => {
+    if (!campaigns) return [];
+    
+    return campaigns.filter(campaign =>
+      campaign.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      campaign.status.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [campaigns, searchTerm]);
+
+  const handleRowClick = (campaign: Campaign) => {
+    setSelectedCampaign(campaign);
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+    setSelectedCampaign(null);
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'paused':
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      case 'completed':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+    }
+  };
 
   if (isLoading) {
     return (
@@ -78,162 +107,100 @@ export function CampaignsTable({ campaigns, isLoading }: CampaignsTableProps) {
     );
   }
 
-  if (!campaigns) return null;
-
-  const handleSort = (column: keyof Campaign) => {
-    if (sortBy === column) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(column);
-      setSortOrder('asc');
-    }
-  };
-
-  const filteredAndSortedCampaigns = campaigns
-    .filter(campaign => filterStatus === 'all' || campaign.status === filterStatus)
-    .sort((a, b) => {
-      const aValue = a[sortBy];
-      const bValue = b[sortBy];
-      
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sortOrder === 'asc' 
-          ? aValue.localeCompare(bValue)
-          : bValue.localeCompare(aValue);
-      }
-      
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-      }
-      
-      return 0;
-    });
-
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <CardTitle>Recent Campaigns</CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              Monitor your latest marketing campaigns performance
-            </p>
+    <>
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <CardTitle>Recent Campaigns</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Click on any campaign row to view detailed information
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search campaigns..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 w-64"
+                />
+              </div>
+              <Button variant="outline" size="icon">
+                <Filter className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Campaign Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Clicks</TableHead>
+                  <TableHead>Conversions</TableHead>
+                  <TableHead>ROI</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredCampaigns.map((campaign, index) => (
+                  <motion.tr
+                    key={campaign.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="cursor-pointer hover:bg-muted/50 transition-colors"
+                    onClick={() => handleRowClick(campaign)}
+                  >
+                    <TableCell className="font-medium">{campaign.name}</TableCell>
+                    <TableCell>
+                      <Badge className={getStatusColor(campaign.status)}>
+                        {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{campaign.clicks.toLocaleString()}</TableCell>
+                    <TableCell>{campaign.conversions.toLocaleString()}</TableCell>
+                    <TableCell className={campaign.roi > 200 ? 'text-green-600 font-semibold' : ''}>
+                      {campaign.roi}%
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRowClick(campaign);
+                        }}
+                        className="h-8 px-2"
+                      >
+                        View Details
+                      </Button>
+                    </TableCell>
+                  </motion.tr>
+                ))}
+              </TableBody>
+            </Table>
           </div>
           
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Filter className="h-4 w-4" />
-                Filter: {filterStatus === 'all' ? 'All' : filterStatus}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setFilterStatus('all')}>
-                All Campaigns
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setFilterStatus('active')}>
-                Active Only
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setFilterStatus('paused')}>
-                Paused Only
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => handleSort('name')}
-                    className="h-auto p-0 font-medium hover:bg-transparent"
-                  >
-                    Campaign Name
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => handleSort('clicks')}
-                    className="h-auto p-0 font-medium hover:bg-transparent"
-                  >
-                    Clicks
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => handleSort('conversions')}
-                    className="h-auto p-0 font-medium hover:bg-transparent"
-                  >
-                    Conversions
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => handleSort('roi')}
-                    className="h-auto p-0 font-medium hover:bg-transparent"
-                  >
-                    ROI %
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </TableHead>
-                <TableHead className="w-[50px]"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredAndSortedCampaigns.map((campaign) => (
-                <TableRow key={campaign.id} className="hover:bg-muted/50">
-                  <TableCell className="font-medium">{campaign.name}</TableCell>
-                  <TableCell>
-                    <Badge 
-                      variant={campaign.status === 'active' ? 'default' : 'secondary'}
-                      className={
-                        campaign.status === 'active' 
-                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300'
-                          : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
-                      }
-                    >
-                      {campaign.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{campaign.clicks.toLocaleString()}</TableCell>
-                  <TableCell>{campaign.conversions.toLocaleString()}</TableCell>
-                  <TableCell>
-                    <span className={campaign.roi > 200 ? 'text-emerald-600 font-medium' : 'text-foreground'}>
-                      {campaign.roi}%
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Edit Campaign</DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive">
-                          Delete Campaign
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </CardContent>
-    </Card>
+          {filteredCampaigns.length === 0 && (
+            <div className="text-center py-8 text-muted-foreground">
+              {searchTerm ? 'No campaigns found matching your search.' : 'No campaigns available.'}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Campaign Details Drawer */}
+      <CampaignDetailsDrawer
+        campaign={selectedCampaign}
+        isOpen={isDrawerOpen}
+        onClose={handleCloseDrawer}
+      />
+    </>
   );
 }
