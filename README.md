@@ -2,7 +2,6 @@
 
 A modern, responsive analytics dashboard built with Next.js 14, TypeScript, and Tailwind CSS. Designed for marketing agencies to track campaign performance and optimize marketing strategies with advanced AI-powered features.
 
-![Dashboard Preview](https://via.placeholder.com/800x400/1f2937/ffffff?text=ADmyBRAND+Analytics+Dashboard)
 
 ## ✨ Features
 
