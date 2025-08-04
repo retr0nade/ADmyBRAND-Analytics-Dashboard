@@ -2,8 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { Menu, Bell, Search } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { NotificationDropdown } from '@/components/notification-dropdown';
 
 interface TopNavbarProps {
   onMenuClick: () => void;
@@ -33,12 +34,7 @@ export function TopNavbar({ onMenuClick }: TopNavbarProps) {
         </div>
         
         <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-xs text-white flex items-center justify-center">
-              3
-            </span>
-          </Button>
+          <NotificationDropdown />
           
           <ThemeToggle />
           

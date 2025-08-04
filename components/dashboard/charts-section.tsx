@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { DateRangePicker } from './date-range-picker';
 import { RevenueChart } from './charts/revenue-chart';
 import { ConversionsChart } from './charts/conversions-chart';
@@ -34,6 +36,39 @@ export function ChartsSection({
     from: undefined,
     to: undefined
   });
+  const [showProjection, setShowProjection] = useState(true);
+  const [showCurrentYear, setShowCurrentYear] = useState(true);
+  const [showPreviousYear, setShowPreviousYear] = useState(true);
+
+  // Determine if projections should be shown based on date range
+  const shouldShowProjection = () => {
+    const currentDate = new Date();
+    const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
+    
+    if (effectiveRange) {
+      // If custom date range is set, check if it extends to current date or future
+      const rangeEnd = effectiveRange.to;
+      if (rangeEnd && rangeEnd < currentDate) {
+        // Historical range - don't show projections
+        return false;
+      }
+    }
+    
+    return showProjection;
+  };
+
+  // Check if projections are disabled due to historical date range
+  const isProjectionDisabledByDateRange = () => {
+    const currentDate = new Date();
+    const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
+    
+    if (effectiveRange) {
+      const rangeEnd = effectiveRange.to;
+      return rangeEnd && rangeEnd < currentDate;
+    }
+    
+    return false;
+  };
 
   const handleCustomDateRangeChange = (range: { from: Date | undefined; to: Date | undefined }) => {
     setPendingRange(range);
@@ -131,8 +166,63 @@ export function ChartsSection({
               </div>
             </div>
           </CardHeader>
-          <CardContent>
-            <RevenueChart data={chartData.revenue} />
+          <CardContent className="space-y-4">
+            <RevenueChart 
+              data={chartData.revenue} 
+              showProjection={shouldShowProjection()} 
+              showCurrentYear={showCurrentYear}
+              showPreviousYear={showPreviousYear}
+            />
+            
+            {/* Chart Controls */}
+            <div className="flex items-center justify-between pt-4 border-t">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="current-year"
+                    checked={showCurrentYear}
+                    onCheckedChange={setShowCurrentYear}
+                  />
+                  <Label htmlFor="current-year" className="text-sm font-medium flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                    Current Year
+                  </Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="previous-year"
+                    checked={showPreviousYear}
+                    onCheckedChange={setShowPreviousYear}
+                  />
+                  <Label htmlFor="previous-year" className="text-sm font-medium flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-gray-400"></div>
+                    Previous Year
+                  </Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="ai-projection"
+                    checked={showProjection && !isProjectionDisabledByDateRange()}
+                    onCheckedChange={setShowProjection}
+                    disabled={isProjectionDisabledByDateRange()}
+                  />
+                  <Label 
+                    htmlFor="ai-projection" 
+                    className={`text-sm font-medium flex items-center gap-2 ${isProjectionDisabledByDateRange() ? 'text-muted-foreground' : ''}`}
+                  >
+                    <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+                    AI Projections
+                    {isProjectionDisabledByDateRange() && (
+                      <span className="text-xs text-muted-foreground ml-1">
+                        (Historical view)
+                      </span>
+                    )}
+                  </Label>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Download, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
+import { useNotifications } from '@/lib/notification-context';
 import type { Campaign } from '@/lib/types';
 
 interface PageHeaderProps {
@@ -10,6 +11,7 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({ campaigns }: PageHeaderProps) {
+  const { addNotification } = useNotifications();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
@@ -51,6 +53,19 @@ export function PageHeader({ campaigns }: PageHeaderProps) {
     a.download = `admybrand-campaigns-${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     window.URL.revokeObjectURL(url);
+
+    // Add notification
+    addNotification({
+      title: 'CSV Export Completed',
+      message: 'Your dashboard campaign data has been exported as CSV. The file has been downloaded to your device.',
+      type: 'success',
+      action: {
+        label: 'View Downloads',
+        onClick: () => {
+          console.log('Opening downloads folder...');
+        },
+      },
+    });
   };
 
   return (

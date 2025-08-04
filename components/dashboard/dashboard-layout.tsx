@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Sidebar } from './sidebar';
 import { TopNavbar } from './top-navbar';
+import { AISummaryButton } from '@/components/ai-summary-button';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -24,6 +25,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </main>
       </div>
+      
+      <AISummaryButton />
     </div>
   );
 }

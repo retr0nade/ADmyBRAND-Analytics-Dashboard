@@ -21,8 +21,9 @@ export interface Campaign {
 export interface ChartData {
   revenue: Array<{
     month: string;
-    revenue: number;
-    previousYear: number;
+    revenue: number | null;
+    previousYear: number | null;
+    projection?: number;
   }>;
   conversions: Array<{
     campaign: string;

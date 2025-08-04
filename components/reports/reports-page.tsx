@@ -4,15 +4,19 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sidebar } from '../dashboard/sidebar';
 import { TopNavbar } from '../dashboard/top-navbar';
+import { AISummaryButton } from '@/components/ai-summary-button';
 import { ReportsFilterBar } from './reports-filter-bar';
 import { CampaignComparisonTable } from './campaign-comparison-table';
 import { CampaignInsights } from './campaign-insights';
 import { generateMockData } from '@/lib/mock-data';
+import { exportToCSV, exportToPDF } from '@/lib/export-utils';
+import { useNotifications } from '@/lib/notification-context';
 import type { Campaign, DateRange } from '@/lib/types';
 
 interface ReportsPageProps {}
 
 export function ReportsPage({}: ReportsPageProps) {
+  const { addNotification } = useNotifications();
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCampaigns, setSelectedCampaigns] = useState<string[]>([]);
@@ -21,6 +25,7 @@ export function ReportsPage({}: ReportsPageProps) {
     to: undefined
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     const loadData = () => {
@@ -34,10 +39,29 @@ export function ReportsPage({}: ReportsPageProps) {
     loadData();
   }, []);
 
-  const handleDownloadReport = (format: 'PDF' | 'CSV') => {
-    // Mock download functionality
-    console.log(`Downloading ${format} report for campaigns:`, selectedCampaigns);
-    // In a real app, this would trigger an API call to generate and download the report
+  const handleDownloadReport = async (format: 'PDF' | 'CSV') => {
+    if (!data?.campaigns) return;
+    
+    setIsExporting(true);
+    
+    try {
+      const exportData = {
+        campaigns: data.campaigns,
+        selectedCampaigns,
+        dateRange
+      };
+
+      if (format === 'CSV') {
+        exportToCSV(exportData, addNotification);
+      } else {
+        await exportToPDF(exportData, addNotification);
+      }
+    } catch (error) {
+      console.error(`Error exporting ${format}:`, error);
+      // You could add a toast notification here for error handling
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const handleCampaignSelection = (campaignIds: string[]) => {
@@ -66,6 +90,7 @@ export function ReportsPage({}: ReportsPageProps) {
             </motion.div>
           </main>
         </div>
+        <AISummaryButton />
       </div>
     );
   }
@@ -100,6 +125,7 @@ export function ReportsPage({}: ReportsPageProps) {
               onCampaignSelection={handleCampaignSelection}
               onDateRangeChange={handleDateRangeChange}
               onDownloadReport={handleDownloadReport}
+              isExporting={isExporting}
             />
 
             {/* Campaign Comparison Table */}
@@ -118,6 +144,7 @@ export function ReportsPage({}: ReportsPageProps) {
           </motion.div>
         </main>
       </div>
+      <AISummaryButton />
     </div>
   );
 } 

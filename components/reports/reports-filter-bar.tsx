@@ -20,7 +20,8 @@ import {
   Filter,
   X,
   Calendar,
-  BarChart3
+  BarChart3,
+  Loader2
 } from 'lucide-react';
 import type { Campaign } from '@/lib/types';
 
@@ -31,6 +32,7 @@ interface ReportsFilterBarProps {
   onCampaignSelection: (campaignIds: string[]) => void;
   onDateRangeChange: (range: { from: Date | undefined; to: Date | undefined }) => void;
   onDownloadReport: (format: 'PDF' | 'CSV') => void;
+  isExporting?: boolean;
 }
 
 export function ReportsFilterBar({
@@ -39,9 +41,11 @@ export function ReportsFilterBar({
   dateRange,
   onCampaignSelection,
   onDateRangeChange,
-  onDownloadReport
+  onDownloadReport,
+  isExporting = false
 }: ReportsFilterBarProps) {
   const [isCampaignDropdownOpen, setIsCampaignDropdownOpen] = useState(false);
+  const [pendingDateRange, setPendingDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>(dateRange);
 
   const handleCampaignToggle = (campaignId: string) => {
     const newSelection = selectedCampaigns.includes(campaignId)
@@ -58,6 +62,14 @@ export function ReportsFilterBar({
     onCampaignSelection([]);
   };
 
+  const handlePendingDateRangeChange = (range: { from: Date | undefined; to: Date | undefined }) => {
+    setPendingDateRange(range);
+  };
+
+  const handleApplyDateRange = () => {
+    onDateRangeChange(pendingDateRange);
+  };
+
   const selectedCampaignsData = campaigns.filter(c => selectedCampaigns.includes(c.id));
 
   return (
@@ -70,9 +82,16 @@ export function ReportsFilterBar({
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <DateRangePicker
-                dateRange={dateRange}
-                onDateRangeChange={onDateRangeChange}
+                dateRange={pendingDateRange}
+                onDateRangeChange={handlePendingDateRangeChange}
               />
+              <Button
+                onClick={handleApplyDateRange}
+                size="sm"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
+                Apply
+              </Button>
             </div>
 
             {/* Campaign Multi-Select */}
@@ -150,18 +169,26 @@ export function ReportsFilterBar({
               variant="outline"
               onClick={() => onDownloadReport('CSV')}
               className="gap-2"
-              disabled={selectedCampaigns.length === 0}
+              disabled={isExporting}
             >
-              <FileText className="h-4 w-4" />
-              Download CSV
+              {isExporting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <FileText className="h-4 w-4" />
+              )}
+              {isExporting ? 'Exporting...' : 'Download CSV'}
             </Button>
             <Button
               onClick={() => onDownloadReport('PDF')}
               className="gap-2"
-              disabled={selectedCampaigns.length === 0}
+              disabled={isExporting}
             >
-              <Download className="h-4 w-4" />
-              Download PDF
+              {isExporting ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              {isExporting ? 'Exporting...' : 'Download PDF'}
             </Button>
           </div>
         </div>
