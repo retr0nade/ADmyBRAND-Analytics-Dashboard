@@ -46,11 +46,17 @@ export function ChartsSection({
     const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
     
     if (effectiveRange) {
-      // If custom date range is set, check if it extends to current date or future
+      const rangeStart = effectiveRange.from;
       const rangeEnd = effectiveRange.to;
-      if (rangeEnd && rangeEnd < currentDate) {
-        // Historical range - don't show projections
+      
+      // If both dates are before or same as present date - historical range
+      if (rangeStart && rangeEnd && rangeStart <= currentDate && rangeEnd <= currentDate) {
         return false;
+      }
+      
+      // If both dates are after present date - future range
+      if (rangeStart && rangeEnd && rangeStart > currentDate && rangeEnd > currentDate) {
+        return true; // Always show projections for future ranges
       }
     }
     
@@ -63,8 +69,43 @@ export function ChartsSection({
     const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
     
     if (effectiveRange) {
+      const rangeStart = effectiveRange.from;
       const rangeEnd = effectiveRange.to;
-      return rangeEnd && rangeEnd < currentDate;
+      
+      // Grey out if both dates are before or same as present date
+      return rangeStart && rangeEnd && rangeStart <= currentDate && rangeEnd <= currentDate;
+    }
+    
+    return false;
+  };
+
+  // Check if we're viewing historical data (for UI styling)
+  const isHistoricalView = () => {
+    const currentDate = new Date();
+    const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
+    
+    if (effectiveRange) {
+      const rangeStart = effectiveRange.from;
+      const rangeEnd = effectiveRange.to;
+      
+      // Historical view if both dates are before or same as present date
+      return rangeStart && rangeEnd && rangeStart <= currentDate && rangeEnd <= currentDate;
+    }
+    
+    return false;
+  };
+
+  // Check if we're viewing future data (for UI styling)
+  const isFutureView = () => {
+    const currentDate = new Date();
+    const effectiveRange = localCustomRange.from && localCustomRange.to ? localCustomRange : null;
+    
+    if (effectiveRange) {
+      const rangeStart = effectiveRange.from;
+      const rangeEnd = effectiveRange.to;
+      
+      // Future view if both dates are after present date
+      return rangeStart && rangeEnd && rangeStart > currentDate && rangeEnd > currentDate;
     }
     
     return false;
@@ -76,6 +117,23 @@ export function ChartsSection({
 
   const handleApplyDateRange = () => {
     setLocalCustomRange(pendingRange);
+    
+    const currentDate = new Date();
+    
+    // If both dates are before or same as present date - historical range
+    if (pendingRange.from && pendingRange.to && 
+        pendingRange.from <= currentDate && pendingRange.to <= currentDate) {
+      setShowProjection(false);
+    }
+    
+    // If both dates are after present date - future range
+    if (pendingRange.from && pendingRange.to && 
+        pendingRange.from > currentDate && pendingRange.to > currentDate) {
+      setShowProjection(true);
+      setShowCurrentYear(false);
+      setShowPreviousYear(false);
+    }
+    
     if (onCustomDateRangeChange) {
       onCustomDateRangeChange(pendingRange);
     }
@@ -174,55 +232,66 @@ export function ChartsSection({
               showPreviousYear={showPreviousYear}
             />
             
-            {/* Chart Controls */}
-            <div className="flex items-center justify-between pt-4 border-t">
-              <div className="flex items-center gap-6">
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="current-year"
-                    checked={showCurrentYear}
-                    onCheckedChange={setShowCurrentYear}
-                  />
-                  <Label htmlFor="current-year" className="text-sm font-medium flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                    Current Year
-                  </Label>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="previous-year"
-                    checked={showPreviousYear}
-                    onCheckedChange={setShowPreviousYear}
-                  />
-                  <Label htmlFor="previous-year" className="text-sm font-medium flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-gray-400"></div>
-                    Previous Year
-                  </Label>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="ai-projection"
-                    checked={showProjection && !isProjectionDisabledByDateRange()}
-                    onCheckedChange={setShowProjection}
-                    disabled={isProjectionDisabledByDateRange()}
-                  />
-                  <Label 
-                    htmlFor="ai-projection" 
-                    className={`text-sm font-medium flex items-center gap-2 ${isProjectionDisabledByDateRange() ? 'text-muted-foreground' : ''}`}
-                  >
-                    <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-                    AI Projections
-                    {isProjectionDisabledByDateRange() && (
-                      <span className="text-xs text-muted-foreground ml-1">
-                        (Historical view)
-                      </span>
-                    )}
-                  </Label>
-                </div>
-              </div>
-            </div>
+                         {/* Chart Controls */}
+             <div className="space-y-3 pt-4 border-t">
+               <div className="flex items-center gap-6">
+                 <div className="flex items-center space-x-2">
+                   <Switch
+                     id="current-year"
+                     checked={showCurrentYear}
+                     onCheckedChange={setShowCurrentYear}
+                     disabled={isFutureView()}
+                   />
+                   <Label 
+                     htmlFor="current-year" 
+                     className={`text-sm font-medium flex items-center gap-2 ${isFutureView() ? 'text-muted-foreground' : ''}`}
+                   >
+                     <div className={`w-3 h-3 rounded-full ${isFutureView() ? 'bg-gray-400' : 'bg-blue-500'}`}></div>
+                     Current Year
+                   </Label>
+                 </div>
+                 
+                 <div className="flex items-center space-x-2">
+                   <Switch
+                     id="previous-year"
+                     checked={showPreviousYear}
+                     onCheckedChange={setShowPreviousYear}
+                     disabled={isFutureView()}
+                   />
+                   <Label 
+                     htmlFor="previous-year" 
+                     className={`text-sm font-medium flex items-center gap-2 ${isFutureView() ? 'text-muted-foreground' : ''}`}
+                   >
+                     <div className={`w-3 h-3 rounded-full ${isFutureView() ? 'bg-gray-400' : 'bg-gray-400'}`}></div>
+                     Previous Year
+                   </Label>
+                 </div>
+                 
+                 <div className="flex items-center space-x-2">
+                   <Switch
+                     id="ai-projection"
+                     checked={showProjection && !isProjectionDisabledByDateRange()}
+                     onCheckedChange={setShowProjection}
+                     disabled={isProjectionDisabledByDateRange()}
+                   />
+                   <Label 
+                     htmlFor="ai-projection" 
+                     className={`text-sm font-medium flex items-center gap-2 ${isHistoricalView() ? 'text-muted-foreground' : ''}`}
+                   >
+                     <div className={`w-3 h-3 rounded-full ${isHistoricalView() ? 'bg-gray-400' : 'bg-purple-500'}`}></div>
+                     AI Projections
+                   </Label>
+                 </div>
+               </div>
+               
+               {/* View Labels */}
+               {(isHistoricalView() || isFutureView()) && (
+                 <div className="text-xs text-muted-foreground">
+                   {isHistoricalView() && "(Historical view)"}
+                   {isFutureView() && "(Future view)"}
+                 </div>
+               )}
+             </div>
           </CardContent>
         </Card>
 

@@ -67,6 +67,42 @@ export function generateRevenueData(dateRange: DateRange = 'last6months', custom
       revenue: faker.number.int({ min: 800000, max: 1500000 }),
       previousYear: faker.number.int({ min: 600000, max: 1200000 }),
     }));
+    
+    // Check if this is a historical range (both dates <= current date)
+    const currentDate = new Date();
+    if (customRange.from <= currentDate && customRange.to <= currentDate) {
+      // For historical date ranges, don't add projection data
+      return baseData;
+    }
+    
+         // Check if this is a future range (both dates > current date)
+     if (customRange.from > currentDate && customRange.to > currentDate) {
+       // For future ranges, generate realistic projection data
+       const result = [];
+       
+       // Generate a realistic starting point for projections
+       const baseRevenue = faker.number.int({ min: 800000, max: 1200000 });
+       
+       for (let i = 0; i < days.length; i++) {
+         const day = days[i];
+         
+         // Create realistic projection with some variation and trend
+         const trendFactor = 1 + (i * 0.02); // Slight upward trend
+         const variation = faker.number.float({ min: 0.85, max: 1.15 }); // ±15% variation
+         const projectedRevenue = Math.max(0, baseRevenue * trendFactor * variation);
+         
+         result.push({
+           month: format(day, 'MMM dd'),
+           revenue: null, // No actual revenue for future dates
+           previousYear: null, // No previous year data for future dates
+           projection: projectedRevenue,
+         });
+       }
+       
+       return result;
+     }
+    
+    // For mixed ranges (historical + current), add projection data as before
   } else {
     switch (dateRange) {
       case 'last6months':
