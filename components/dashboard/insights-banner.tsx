@@ -11,6 +11,7 @@ interface InsightsBannerProps {
   campaigns?: Campaign[];
   metrics?: Metrics;
   isLoading?: boolean;
+  animationsEnabled?: boolean;
 }
 
 interface Insight {
@@ -20,7 +21,7 @@ interface Insight {
   color: string;
 }
 
-export function InsightsBanner({ campaigns, metrics, isLoading }: InsightsBannerProps) {
+export function InsightsBanner({ campaigns, metrics, isLoading, animationsEnabled = true }: InsightsBannerProps) {
   const [isDismissed, setIsDismissed] = useState(false);
 
   const insight = useMemo(() => {
@@ -110,9 +111,9 @@ export function InsightsBanner({ campaigns, metrics, isLoading }: InsightsBanner
       });
     }
 
-    // Return the most relevant insight (prioritize positive, then warning, then neutral)
+    // Return the most relevant insight (prioritize positive, then warning, then negative, then neutral)
     const priorityOrder = ['positive', 'warning', 'negative', 'neutral'];
-    const sortedInsights = insights.sort((a, b) => 
+    const sortedInsights = insights.sort((a, b) =>
       priorityOrder.indexOf(a.type) - priorityOrder.indexOf(b.type)
     );
 
@@ -127,8 +128,8 @@ export function InsightsBanner({ campaigns, metrics, isLoading }: InsightsBanner
   if (isLoading) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={animationsEnabled ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+        animate={animationsEnabled ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         className="mb-6"
       >
         <Alert className="animate-pulse">
@@ -153,10 +154,10 @@ export function InsightsBanner({ campaigns, metrics, isLoading }: InsightsBanner
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.3 }}
+        initial={animationsEnabled ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+        animate={animationsEnabled ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+        exit={animationsEnabled ? { opacity: 0, y: -20 } : { opacity: 1, y: 0 }}
+        transition={animationsEnabled ? { duration: 0.3 } : { duration: 0 }}
         className="mb-6"
       >
         <Alert className={`${insight.color} border-2`}>
