@@ -1,34 +1,69 @@
 # ADmyBRAND Insights - AI-Powered Marketing Analytics Dashboard
 
-A modern, responsive analytics dashboard built with Next.js 14, TypeScript, and Tailwind CSS. Designed for marketing agencies to track campaign performance and optimize marketing strategies.
+A modern, responsive analytics dashboard built with Next.js 14, TypeScript, and Tailwind CSS. Designed for marketing agencies to track campaign performance and optimize marketing strategies with advanced AI-powered features.
 
 ![Dashboard Preview](https://via.placeholder.com/800x400/1f2937/ffffff?text=ADmyBRAND+Analytics+Dashboard)
 
 ## ✨ Features
 
-- 📊 **Real-time Analytics**: Live metrics updates every 10 seconds
+### 🚀 Core Analytics
+- 📊 **Real-time Analytics**: Live metrics updates with smooth animations
+- 📈 **Interactive Charts**: Line, bar, and donut charts with custom tooltips
+- 📋 **Advanced Data Table**: Sorting, filtering, and pagination for campaigns
 - 📱 **Responsive Design**: Optimized for mobile, tablet, and desktop
-- 🎨 **Beautiful UI**: Clean, professional design with smooth animations
-- 📈 **Interactive Charts**: Line, bar, and donut charts with tooltips
-- 📋 **Advanced Table**: Sorting, filtering, and pagination
-- 🌙 **Dark Mode**: Toggle between light and dark themes
-- 📁 **Export Data**: Download analytics as CSV
-- ⚡ **Performance**: Optimized loading states and skeletons
-- 🔍 **Search & Filter**: Advanced data filtering capabilities
-- 📱 **Mobile-First**: Optimized for all device sizes
+- 🌙 **Dark/Light Mode**: Toggle between themes with system preference detection
+
+### 🤖 AI-Powered Features
+- **AI Assistant**: Floating chat widget with context-aware responses
+- **AI Projections**: Predictive revenue forecasting with linear regression
+- **Smart Date Ranges**: Advanced date filtering with historical/future logic
+- **AI Insights**: Page-specific analytics summaries and recommendations
+
+### 🔔 Notification System
+- **Real-time Notifications**: Global notification system with React Context
+- **Download Alerts**: Automatic notifications for CSV/PDF exports
+- **Interactive Dropdown**: Click-outside-to-close with unread counts
+- **Multiple Types**: Info, success, warning, and error notifications
+
+### 📊 Advanced Chart Features
+- **AI Projection Lines**: Dotted purple lines with glow effects
+- **Smart Toggle Controls**: Individual line visibility controls
+- **Historical/Future Logic**: Automatic toggle states based on date ranges
+- **Smooth Animations**: Framer Motion powered transitions
+
+### 📁 Export & Data Management
+- **CSV Export**: Campaign data with custom date ranges
+- **PDF Export**: Professional reports with jsPDF
+- **Download Notifications**: Automatic success alerts
+- **File Naming**: Date-stamped filenames for organization
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Components**: shadcn/ui (Radix UI + Tailwind)
-- **Charts**: Recharts
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Mock Data**: Faker.js
-- **State Management**: React Hooks
-- **Build Tool**: Vite (via Next.js)
+### **Frontend Framework**
+- **Next.js 14** with App Router
+- **TypeScript** for type safety
+- **React 18** with modern hooks
+
+### **Styling & UI**
+- **Tailwind CSS** for utility-first styling
+- **shadcn/ui** component library (Radix UI + Tailwind)
+- **Framer Motion** for animations
+- **Lucide React** for icons
+
+### **Data & Charts**
+- **Recharts** for interactive charts
+- **Faker.js** for realistic mock data
+- **date-fns** for date manipulation
+
+### **Export & PDF**
+- **jsPDF** for PDF generation
+- **jspdf-autotable** for table formatting
+- **Blob API** for CSV downloads
+
+### **State Management**
+- **React Context** for global state
+- **React Hooks** for local state
+- **Custom hooks** for reusable logic
 
 ## 🚀 Quick Start
 
@@ -70,68 +105,158 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 
 ```
 ├── app/
-│   ├── layout.tsx          # Root layout with theme provider
-│   ├── page.tsx           # Main dashboard page
-│   └── globals.css        # Global styles and CSS variables
+│   ├── layout.tsx              # Root layout with providers
+│   ├── page.tsx               # Main dashboard page
+│   ├── reports/
+│   │   └── page.tsx           # Reports page
+│   └── globals.css            # Global styles and CSS variables
 ├── components/
+│   ├── ai-summary-button.tsx      # Floating AI assistant button
+│   ├── ai-summary-modal.tsx       # AI chat interface
+│   ├── notification-dropdown.tsx  # Notification system
+│   ├── theme-provider.tsx         # Theme context provider
 │   ├── dashboard/
-│   │   ├── dashboard-layout.tsx    # Main layout with sidebar
-│   │   ├── dashboard-content.tsx   # Dashboard page content
-│   │   ├── sidebar.tsx            # Navigation sidebar
-│   │   ├── top-navbar.tsx         # Top navigation bar
-│   │   ├── metrics-overview.tsx   # Metrics cards section
-│   │   ├── metric-card.tsx        # Individual metric card
-│   │   ├── charts-section.tsx     # Charts container
-│   │   ├── campaigns-table.tsx    # Campaigns data table
-│   │   ├── page-header.tsx        # Page title and actions
+│   │   ├── dashboard-layout.tsx   # Main layout with sidebar
+│   │   ├── dashboard-content.tsx  # Dashboard page content
+│   │   ├── sidebar.tsx           # Navigation sidebar
+│   │   ├── top-navbar.tsx        # Top navigation with notifications
+│   │   ├── metrics-overview.tsx  # Metrics cards section
+│   │   ├── metric-card.tsx       # Individual metric card
+│   │   ├── charts-section.tsx    # Charts container with toggles
+│   │   ├── campaigns-table.tsx   # Campaigns data table
+│   │   ├── page-header.tsx       # Page title and export actions
+│   │   ├── date-range-picker.tsx # Custom date range selector
 │   │   └── charts/
-│   │       ├── revenue-chart.tsx       # Revenue line chart
+│   │       ├── revenue-chart.tsx       # Revenue line chart with AI projections
 │   │       ├── conversions-chart.tsx   # Conversions bar chart
 │   │       └── user-distribution-chart.tsx # User distribution donut chart
-│   ├── theme-provider.tsx    # Theme context provider
-│   ├── theme-toggle.tsx      # Dark/light mode toggle
-│   └── ui/                   # shadcn/ui components
+│   ├── reports/
+│   │   ├── reports-page.tsx      # Reports page component
+│   │   ├── reports-filter-bar.tsx # Reports filtering interface
+│   │   ├── campaign-comparison-table.tsx # Advanced comparison table
+│   │   └── campaign-insights.tsx  # Campaign insights component
+│   └── ui/                      # shadcn/ui components
 ├── lib/
-│   ├── utils.ts             # Utility functions
-│   ├── types.ts             # TypeScript type definitions
-│   └── mock-data.ts         # Mock data generation
+│   ├── utils.ts                 # Utility functions
+│   ├── types.ts                 # TypeScript type definitions
+│   ├── mock-data.ts             # Mock data generation with AI projections
+│   ├── export-utils.ts          # CSV/PDF export functions
+│   └── notification-context.tsx # Global notification system
 ├── hooks/
-│   └── use-toast.ts         # Toast notification hook
+│   └── use-toast.ts             # Toast notification hook
 └── README.md
 ```
 
-## 🎯 Key Components
+## 🎯 Key Features in Detail
 
-### MetricCard
-Displays individual KPI metrics with icons, values, and change indicators.
+### 🤖 AI Assistant System
 
-### AnalyticsChart
-Reusable chart component supporting line, bar, and donut chart types with interactive tooltips.
+**Floating Chat Widget:**
+- Fixed bottom-right circular button with robot icon
+- Smooth modal expansion with Framer Motion
+- Context-aware responses based on current page
+- Full chat interface with message history
+- Typing animations and loading states
 
-### CampaignsTable
-Advanced data table with sorting, filtering, and pagination for campaign management.
+**Smart Responses:**
+- **Overview Page**: Revenue, users, conversions, growth summaries
+- **Reports Page**: Campaign performance, trends, optimization suggestions
+- **Preset Prompts**: Quick access to common analytics questions
+- **HTML Rendering**: Bold text and formatting support
 
-## 🔧 Features in Detail
+### 📊 Advanced Chart System
+
+**AI Projection Features:**
+- **Linear Regression**: 30-day historical data analysis
+- **Predictive Lines**: Purple dotted lines with glow effects
+- **Smooth Connections**: Blended projection points for continuity
+- **Custom Tooltips**: Projection-specific information display
+
+**Smart Date Range Logic:**
+- **Historical View** (both dates ≤ present): AI projection disabled
+- **Mixed View** (start ≤ present, end > present): All toggles available
+- **Future View** (both dates > present): Only AI projection shown
+- **Auto Toggle States**: Intelligent control based on date selection
+
+**Chart Controls:**
+- Individual toggle switches for each line type
+- Visual feedback with color-coded indicators
+- Context labels for historical/future views
+- Disabled states with appropriate styling
+
+### 🔔 Notification System
+
+**Global Context:**
+- React Context for app-wide notification management
+- Real-time notification updates
+- Unread count tracking
+- Multiple notification types (info, success, warning, error)
+
+**Interactive Features:**
+- Click-outside-to-close functionality
+- Mark as read/unread
+- Remove individual notifications
+- Clear all notifications
+- Time-ago formatting
+
+**Download Integration:**
+- Automatic notifications for CSV exports
+- Automatic notifications for PDF exports
+- Success messages with file information
+- Action buttons for download management
+
+### 📁 Export System
+
+**CSV Export:**
+- Campaign data with custom date ranges
+- Formatted headers and data
+- Date-stamped filenames
+- Client-side generation
+
+**PDF Export:**
+- Professional report formatting
+- Summary statistics
+- Campaign comparison tables
+- Custom styling with jsPDF
+
+**Integration:**
+- Notification callbacks for success alerts
+- Error handling for failed exports
+- Loading states during export
+- File naming with date ranges
+
+### 🎨 Theme System
+
+**Dark/Light Mode:**
+- System preference detection
+- Smooth theme transitions
+- Optimized colors for both themes
+- Persistent theme selection
+
+**Responsive Design:**
+- **Mobile** (<768px): Collapsible sidebar, stacked cards
+- **Tablet** (768-1024px): Optimized grid layouts
+- **Desktop** (>1024px): Full sidebar, multi-column layouts
+
+## 🔧 Advanced Features
 
 ### Real-time Updates
 - Data refreshes automatically every 10 seconds
 - Smooth animations for data transitions
 - Loading skeletons during data fetch
+- Optimized performance with React.memo
 
-### Responsive Design
-- **Mobile** (<768px): Collapsible sidebar, stacked cards
-- **Tablet** (768-1024px): Optimized grid layouts
-- **Desktop** (>1024px): Full sidebar, multi-column layouts
+### Performance Optimizations
+- **Lighthouse Score**: 95+ across all metrics
+- **First Contentful Paint**: <1.5s
+- **Largest Contentful Paint**: <2.5s
+- **Cumulative Layout Shift**: <0.1
 
-### Dark Mode
-- System preference detection
-- Smooth theme transitions
-- Optimized colors for both themes
-
-### Export Functionality
-- Download campaign data as CSV
-- Formatted data with proper headers
-- Client-side export without server dependency
+### Type Safety
+- Full TypeScript implementation
+- Strict type checking
+- Interface definitions for all data structures
+- Type-safe component props
 
 ## 🚀 Deployment
 
@@ -165,6 +290,16 @@ npm start
 1. Create a new chart component in `components/dashboard/charts/`
 2. Add the chart to `charts-section.tsx`
 3. Update mock data generation as needed
+
+### AI Assistant Customization
+1. Modify `components/ai-summary-modal.tsx` for new responses
+2. Add new preset prompts in the chat interface
+3. Update page detection logic for new routes
+
+### Notification System
+1. Use `useNotifications()` hook in any component
+2. Add custom notification types in `lib/notification-context.tsx`
+3. Implement custom notification actions
 
 ### Styling
 - Colors are defined in `app/globals.css` using CSS variables
@@ -205,12 +340,17 @@ npm run dev
 npx tsc --noEmit
 ```
 
-## 📊 Performance
+**AI Assistant not working:**
+- Check browser console for errors
+- Ensure all dependencies are installed
+- Verify React Context providers are properly set up
 
-- **Lighthouse Score**: 95+ across all metrics
-- **First Contentful Paint**: <1.5s
-- **Largest Contentful Paint**: <2.5s
-- **Cumulative Layout Shift**: <0.1
+## 📊 Performance Metrics
+
+- **Bundle Size**: Optimized with Next.js tree shaking
+- **Loading Speed**: Lazy loading for non-critical components
+- **Memory Usage**: Efficient state management with React Context
+- **SEO**: Server-side rendering with Next.js
 
 ## 🤝 Contributing
 
@@ -228,6 +368,8 @@ We welcome contributions! Please follow these steps:
 - Use conventional commit messages
 - Add tests for new features
 - Update documentation as needed
+- Ensure responsive design for all new components
+- Test AI assistant functionality across different pages
 
 ## 📝 License
 
@@ -239,6 +381,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Recharts](https://recharts.org/) for the chart library
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 - [Lucide](https://lucide.dev/) for the icons
+- [Framer Motion](https://www.framer.com/motion/) for animations
+- [Faker.js](https://fakerjs.dev/) for realistic mock data
 
 ## 📞 Support
 
@@ -251,3 +395,5 @@ If you have any questions or need help:
 ---
 
 **Made with ❤️ for marketing professionals**
+
+*Built with Next.js, TypeScript, and AI-powered insights*
