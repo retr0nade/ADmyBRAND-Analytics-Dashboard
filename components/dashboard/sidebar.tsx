@@ -7,7 +7,8 @@ import {
   BarChart3, 
   FileText, 
   X,
-  TrendingUp
+  TrendingUp,
+  Megaphone
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -20,6 +21,7 @@ interface SidebarProps {
 const navigation = [
   { name: 'Overview', href: '/', icon: BarChart3 },
   { name: 'Reports', href: '/reports', icon: FileText },
+  { name: 'Manage Campaigns', href: '/manage-campaigns', icon: Megaphone },
 ];
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
