@@ -19,7 +19,7 @@ interface SidebarProps {
 }
 
 const navigation = [
-  { name: 'Overview', href: '/', icon: BarChart3 },
+  { name: 'Overview', href: '/dashboard', icon: BarChart3 },
   { name: 'Reports', href: '/reports', icon: FileText },
   { name: 'Manage Campaigns', href: '/manage-campaigns', icon: Megaphone },
 ];
@@ -71,20 +71,26 @@ function SidebarContent({ onClose, pathname }: { onClose?: () => void; pathname:
                   const isActive = pathname === item.href;
                   return (
                     <li key={item.name}>
-                      <Link href={item.href}>
+                      {isActive ? (
                         <Button
-                          variant={isActive ? "secondary" : "ghost"}
-                          className={cn(
-                            "w-full justify-start gap-3 px-3 py-2",
-                            isActive 
-                              ? "bg-secondary text-secondary-foreground" 
-                              : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                          )}
+                          variant="secondary"
+                          className="w-full justify-start gap-3 px-3 py-2 bg-secondary text-secondary-foreground cursor-default"
+                          disabled
                         >
                           <item.icon className="h-5 w-5" />
                           {item.name}
                         </Button>
-                      </Link>
+                      ) : (
+                        <Link href={item.href}>
+                          <Button
+                            variant="ghost"
+                            className="w-full justify-start gap-3 px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-accent"
+                          >
+                            <item.icon className="h-5 w-5" />
+                            {item.name}
+                          </Button>
+                        </Link>
+                      )}
                     </li>
                   );
                 })}
