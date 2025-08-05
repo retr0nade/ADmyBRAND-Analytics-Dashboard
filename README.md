@@ -223,7 +223,7 @@ pnpm dev
 ```
 
 4. **Open your browser:**
-Navigate to [admybrand-analytics-dashboard-iota.vercel.app](admybrand-analytics-dashboard-iota.vercel.app)
+Navigate to link provided in the terminal
 
 **Demo Credentials**: Any email/password combination will work for login
 
