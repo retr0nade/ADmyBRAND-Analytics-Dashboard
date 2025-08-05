@@ -7,8 +7,11 @@ import { ManageCampaignsTable } from '@/components/manage-campaigns/manage-campa
 import { ManageCampaignsFilters } from '@/components/manage-campaigns/manage-campaigns-filters';
 import { generateMockCampaigns } from '@/lib/mock-campaigns';
 import { Campaign } from '@/lib/mock-campaigns';
+import { useNotifications } from '@/lib/notification-context';
+import { exportToPDF } from '@/lib/export-utils';
 
 export default function ManageCampaignsPage() {
+  const { addNotification } = useNotifications();
   const [campaigns, setCampaigns] = useState(generateMockCampaigns());
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'paused' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,10 +54,30 @@ export default function ManageCampaignsPage() {
   const handleExportCSV = () => {
     const csvContent = generateCSVContent(filteredCampaigns);
     downloadFile(csvContent, 'campaigns.csv', 'text/csv');
+    
+    // Add notification
+    addNotification({
+      title: 'CSV Export Completed',
+      message: 'Your campaign data has been exported as CSV. The file has been downloaded to your device.',
+      type: 'success',
+      action: {
+        label: 'View Downloads',
+        onClick: () => {
+          console.log('Opening downloads folder...');
+        },
+      },
+    });
   };
 
   const handleExportPDF = () => {
-    generatePDFContent(filteredCampaigns);
+    // Use the same PDF export utility as the Reports page
+    const exportData = {
+      campaigns: filteredCampaigns,
+      selectedCampaigns: [],
+      dateRange: undefined
+    };
+    
+    exportToPDF(exportData, addNotification);
   };
 
   const generateCSVContent = (campaigns: Campaign[]) => {
@@ -74,65 +97,7 @@ export default function ManageCampaignsPage() {
     return [headers, ...rows].map(row => row.join(',')).join('\n');
   };
 
-  const generatePDFContent = (campaigns: Campaign[]) => {
-    // Create a simple HTML table for PDF generation
-    const tableHTML = `
-      <html>
-        <head>
-          <title>Campaigns Report</title>
-          <style>
-            body { font-family: Arial, sans-serif; margin: 20px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-            th { background-color: #f2f2f2; font-weight: bold; }
-            h1 { color: #333; }
-          </style>
-        </head>
-        <body>
-          <h1>Campaigns Report</h1>
-          <p>Generated on: ${format(new Date(), 'MMM dd, yyyy HH:mm')}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Campaign Name</th>
-                <th>Status</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Budget</th>
-                <th>Spent</th>
-                <th>Clicks</th>
-                <th>Conversions</th>
-                <th>ROI</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${campaigns.map(campaign => `
-                <tr>
-                  <td>${campaign.name}</td>
-                  <td>${campaign.status}</td>
-                  <td>${format(campaign.startDate, 'MMM dd, yyyy')}</td>
-                  <td>${format(campaign.endDate, 'MMM dd, yyyy')}</td>
-                  <td>$${campaign.budget.toLocaleString()}</td>
-                  <td>$${campaign.spent.toLocaleString()}</td>
-                  <td>${campaign.clicks.toLocaleString()}</td>
-                  <td>${campaign.conversions.toLocaleString()}</td>
-                  <td>${campaign.roi}%</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </body>
-      </html>
-    `;
 
-    // Open in new window for printing/saving as PDF
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      newWindow.document.write(tableHTML);
-      newWindow.document.close();
-      newWindow.print();
-    }
-  };
 
   const downloadFile = (content: string, filename: string, mimeType: string) => {
     const blob = new Blob([content], { type: mimeType });
