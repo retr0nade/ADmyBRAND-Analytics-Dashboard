@@ -2,74 +2,192 @@
 
 A modern, responsive analytics dashboard built with Next.js 14, TypeScript, and Tailwind CSS. Designed for marketing agencies to track campaign performance and optimize marketing strategies with advanced AI-powered features.
 
+**Note**: This is a demonstration project with mock data and simulated AI features. All data is generated using Faker.js for realistic presentation.
 
 ## ✨ Features
 
 ### 🔐 Authentication & Navigation
 - 🔑 **Mock Login System**: Beautiful login page with modern UI design
-- 🎨 **Glassmorphism Design**: Subtle gradient backgrounds with blur effects
-- ⚡ **Smooth Animations**: Framer Motion powered transitions and loading states
-- 🔄 **Auto-redirect**: Seamless navigation from login to dashboard
-- 🚪 **Logout Functionality**: Easy access to return to login page
+  - **Glassmorphism Design**: Subtle gradient backgrounds with backdrop blur effects
+  - **Smooth Animations**: Framer Motion powered page load and form transitions
+  - **Password Toggle**: Eye icon to show/hide password with smooth transitions
+  - **Loading States**: 1-second loading simulation with spinner animation
+  - **No Validation**: Accepts any credentials for demo purposes
+  - **Auto-redirect**: Seamless navigation from login to dashboard
+  - **Responsive Design**: Perfect on mobile, tablet, and desktop
 
-### 🚀 Core Analytics
-- 📊 **Real-time Analytics**: Live metrics updates with smooth animations
-- 📈 **Interactive Charts**: Line, bar, and donut charts with custom tooltips
-- 📋 **Advanced Data Table**: Sorting, filtering, and pagination for campaigns
-- 📱 **Responsive Design**: Optimized for mobile, tablet, and desktop
-- 🌙 **Dark/Light Mode**: Toggle between themes with system preference detection
+- 🚪 **User Profile & Logout**
+  - **Dynamic Avatar**: Shows user initials (e.g., "SD" for "Shreyas Deb")
+  - **Profile Dropdown**: Professional dropdown menu with user info
+  - **Menu Options**: Profile, Settings, and Logout with icons
+  - **Logout Functionality**: Redirects to login page from top navbar
 
-### 🤖 AI-Powered Features
-- **AI Assistant**: Floating chat widget with context-aware responses
-- **AI Projections**: Predictive revenue forecasting with linear regression
-- **Smart Date Ranges**: Advanced date filtering with historical/future logic
-- **AI Insights**: Page-specific analytics summaries and recommendations
+### 🚀 Core Analytics Dashboard
+- 📊 **Real-time Metrics Overview**
+  - **Live Updates**: Metrics refresh every 10 seconds with smooth animations
+  - **Key Performance Indicators**: Revenue, Users, Conversions, Growth Rate
+  - **Animated Cards**: Hover effects and loading skeletons
+  - **Mock Data**: Realistic metrics generated with Faker.js
 
-### 🔔 Notification System
-- **Real-time Notifications**: Global notification system with React Context
-- **Download Alerts**: Automatic notifications for CSV/PDF exports
-- **Interactive Dropdown**: Click-outside-to-close with unread counts
-- **Multiple Types**: Info, success, warning, and error notifications
+- 📈 **Interactive Charts Section**
+  - **Revenue Chart**: Line chart with AI projection lines and glow effects
+  - **Conversions Chart**: Bar chart with custom tooltips and animations
+  - **User Distribution**: Donut chart showing user demographics
+  - **Smart Toggle Controls**: Individual visibility toggles for each data series
+  - **Historical/Future Logic**: Automatic toggle states based on date selection
+
+- 📋 **Advanced Campaigns Table**
+  - **Sorting & Filtering**: Multi-column sorting with search functionality
+  - **Pagination**: Efficient data loading with page controls
+  - **Status Indicators**: Color-coded campaign status badges
+  - **Action Buttons**: View details, edit, and export options
+  - **Responsive Design**: Adapts to different screen sizes
+
+### 🤖 AI-Powered Features (Simulated)
+- **AI Assistant Chat Widget**
+  - **Floating Button**: Fixed bottom-right circular button with robot icon
+  - **Context-Aware Responses**: Different responses based on current page
+  - **Page-Specific Insights**: 
+    - Dashboard: Revenue, users, conversions, growth summaries
+    - Reports: Campaign performance, trends, optimization suggestions
+  - **Preset Prompts**: Quick access to common analytics questions
+  - **HTML Rendering**: Supports bold text and formatting in responses
+  - **Typing Animations**: Realistic chat experience with loading states
+  - **Message History**: Maintains conversation context
+
+- **AI Projection Charts**
+  - **Linear Regression**: 30-day historical data analysis (simulated)
+  - **Predictive Lines**: Purple dotted lines with glow effects
+  - **Smart Date Logic**: 
+    - Historical View: AI projection disabled
+    - Mixed View: All toggles available
+    - Future View: Only AI projection shown
+  - **Custom Tooltips**: Projection-specific information display
+
+### 🔔 Advanced Notification System
+- **Global Notification Context**
+  - **Real-time Updates**: React Context for app-wide notification management
+  - **Unread Count**: Tracks unread notifications with badge
+  - **Multiple Types**: Info, success, warning, and error notifications
+  - **Interactive Features**: Click-outside-to-close, mark as read/unread
+  - **Time Stamps**: "Time ago" formatting for notification timestamps
+
+- **Download Integration**
+  - **CSV Export Notifications**: Automatic success alerts with file info
+  - **PDF Export Notifications**: Professional report completion alerts
+  - **Action Buttons**: Quick access to download management
+  - **Error Handling**: Graceful failure notifications
 
 ### 📊 Advanced Chart Features
-- **AI Projection Lines**: Dotted purple lines with glow effects
-- **Smart Toggle Controls**: Individual line visibility controls
-- **Historical/Future Logic**: Automatic toggle states based on date ranges
-- **Smooth Animations**: Framer Motion powered transitions
+- **Revenue Chart with AI Projections**
+  - **Historical Data**: Real revenue trends with smooth animations
+  - **AI Projection Lines**: Purple dotted lines with glow effects
+  - **Toggle Controls**: Individual visibility for historical vs projected data
+  - **Custom Tooltips**: Detailed information on hover
+  - **Responsive Design**: Adapts to container size
+
+- **Conversions Chart**
+  - **Bar Chart Visualization**: Clear conversion rate display
+  - **Animated Bars**: Smooth loading animations
+  - **Custom Styling**: Brand-consistent colors and design
+  - **Interactive Elements**: Hover effects and tooltips
+
+- **User Distribution Chart**
+  - **Donut Chart**: Clean demographic visualization
+  - **Color-coded Segments**: Distinct colors for different user types
+  - **Percentage Labels**: Clear data representation
+  - **Smooth Animations**: Loading and hover effects
 
 ### 📁 Export & Data Management
-- **CSV Export**: Campaign data with custom date ranges
-- **PDF Export**: Professional reports with jsPDF
-- **Download Notifications**: Automatic success alerts
-- **File Naming**: Date-stamped filenames for organization
+- **CSV Export System**
+  - **Campaign Data**: Comprehensive campaign information export
+  - **Custom Date Ranges**: Filtered exports based on selected dates
+  - **Formatted Headers**: Professional column headers
+  - **Date-stamped Filenames**: Organized file naming with date ranges
+  - **Client-side Generation**: No server dependency
+
+- **PDF Export System**
+  - **Professional Reports**: jsPDF-generated reports with custom styling
+  - **Summary Statistics**: Key metrics and performance indicators
+  - **Campaign Comparison Tables**: Detailed campaign analysis
+  - **Custom Branding**: Consistent with dashboard design
+  - **Download Notifications**: Automatic success alerts
+
+### 🎨 Theme & Design System
+- **Dark/Light Mode**
+  - **System Preference Detection**: Automatic theme based on OS settings
+  - **Smooth Transitions**: No flicker during theme changes
+  - **Optimized Colors**: Perfect contrast for both themes
+  - **Persistent Selection**: Remembers user's theme choice
+
+- **Responsive Design**
+  - **Mobile (<768px)**: Collapsible sidebar, stacked cards
+  - **Tablet (768-1024px)**: Optimized grid layouts
+  - **Desktop (>1024px)**: Full sidebar, multi-column layouts
+  - **Touch-friendly**: Optimized for touch interactions
+
+### 📋 Campaign Management
+- **Campaign Management Page**
+  - **Advanced Filters**: Multi-criteria campaign filtering
+  - **Bulk Actions**: Select multiple campaigns for operations
+  - **Edit Modal**: Inline campaign editing with form validation
+  - **Status Management**: Update campaign status with visual feedback
+  - **Search Functionality**: Real-time campaign search
+
+- **Campaign Details Drawer**
+  - **Detailed View**: Comprehensive campaign information
+  - **Performance Metrics**: Key performance indicators
+  - **Edit Functionality**: Inline editing capabilities
+  - **Responsive Design**: Works on all screen sizes
+
+### 📊 Reports & Analytics
+- **Advanced Reports Page**
+  - **Campaign Comparison Table**: Side-by-side campaign analysis
+  - **Performance Insights**: AI-generated insights and recommendations
+  - **Filter Bar**: Advanced filtering and sorting options
+  - **Export Options**: CSV and PDF export capabilities
+  - **Interactive Elements**: Expandable rows and detailed views
+
+- **Campaign Insights**
+  - **Performance Analysis**: Detailed campaign performance breakdown
+  - **Trend Identification**: Historical performance trends
+  - **Recommendations**: AI-generated optimization suggestions
+  - **Visual Charts**: Performance visualization with charts
+
+### ⚙️ Settings & Configuration
+- **Settings Panel**
+  - **User Preferences**: Theme, notifications, and display options
+  - **Dashboard Configuration**: Customizable layout and metrics
+  - **Export Settings**: Default export formats and preferences
+  - **Notification Preferences**: Customizable notification types
 
 ## 🛠️ Tech Stack
 
 ### **Frontend Framework**
-- **Next.js 14** with App Router
-- **TypeScript** for type safety
-- **React 18** with modern hooks
+- **Next.js 14** with App Router for modern React development
+- **TypeScript** for type safety and better developer experience
+- **React 18** with modern hooks and concurrent features
 
 ### **Styling & UI**
-- **Tailwind CSS** for utility-first styling
-- **shadcn/ui** component library (Radix UI + Tailwind)
-- **Framer Motion** for animations
-- **Lucide React** for icons
+- **Tailwind CSS** for utility-first styling and rapid development
+- **shadcn/ui** component library (Radix UI + Tailwind) for accessible components
+- **Framer Motion** for smooth animations and transitions
+- **Lucide React** for consistent, beautiful icons
 
 ### **Data & Charts**
-- **Recharts** for interactive charts
-- **Faker.js** for realistic mock data
-- **date-fns** for date manipulation
+- **Recharts** for interactive, responsive chart components
+- **Faker.js** for realistic mock data generation
+- **date-fns** for advanced date manipulation and formatting
 
 ### **Export & PDF**
-- **jsPDF** for PDF generation
-- **jspdf-autotable** for table formatting
-- **Blob API** for CSV downloads
+- **jsPDF** for client-side PDF generation
+- **jspdf-autotable** for professional table formatting in PDFs
+- **Blob API** for client-side CSV file generation and downloads
 
 ### **State Management**
-- **React Context** for global state
-- **React Hooks** for local state
-- **Custom hooks** for reusable logic
+- **React Context** for global state management (notifications, theme)
+- **React Hooks** for local component state
+- **Custom hooks** for reusable logic and data fetching
 
 ## 🚀 Quick Start
 
@@ -107,6 +225,8 @@ pnpm dev
 4. **Open your browser:**
 Navigate to [http://localhost:3000](http://localhost:3000)
 
+**Demo Credentials**: Any email/password combination will work for login
+
 ## 📁 Project Structure
 
 ```
@@ -119,6 +239,8 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 │   │   └── page.tsx           # Dashboard page (after login)
 │   ├── reports/
 │   │   └── page.tsx           # Reports page
+│   ├── manage-campaigns/
+│   │   └── page.tsx           # Campaign management page
 │   └── globals.css            # Global styles and CSS variables
 ├── components/
 │   ├── ai-summary-button.tsx      # Floating AI assistant button
@@ -129,13 +251,17 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 │   │   ├── dashboard-layout.tsx   # Main layout with sidebar
 │   │   ├── dashboard-content.tsx  # Dashboard page content
 │   │   ├── sidebar.tsx           # Navigation sidebar
-│   │   ├── top-navbar.tsx        # Top navigation with notifications
+│   │   ├── top-navbar.tsx        # Top navigation with user dropdown
 │   │   ├── metrics-overview.tsx  # Metrics cards section
 │   │   ├── metric-card.tsx       # Individual metric card
 │   │   ├── charts-section.tsx    # Charts container with toggles
 │   │   ├── campaigns-table.tsx   # Campaigns data table
 │   │   ├── page-header.tsx       # Page title and export actions
 │   │   ├── date-range-picker.tsx # Custom date range selector
+│   │   ├── insights-banner.tsx   # AI insights banner
+│   │   ├── top-campaigns-leaderboard.tsx # Top campaigns display
+│   │   ├── campaign-details-drawer.tsx # Campaign details modal
+│   │   ├── settings-panel.tsx    # Settings configuration
 │   │   └── charts/
 │   │       ├── revenue-chart.tsx       # Revenue line chart with AI projections
 │   │       ├── conversions-chart.tsx   # Conversions bar chart
@@ -145,9 +271,13 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 │   │   ├── reports-filter-bar.tsx # Reports filtering interface
 │   │   ├── campaign-comparison-table.tsx # Advanced comparison table
 │   │   └── campaign-insights.tsx  # Campaign insights component
+│   ├── manage-campaigns/
+│   │   ├── manage-campaigns-table.tsx # Campaign management table
+│   │   ├── manage-campaigns-filters.tsx # Campaign filtering
+│   │   └── campaign-edit-modal.tsx # Campaign editing modal
 │   └── ui/                      # shadcn/ui components
 ├── lib/
-│   ├── utils.ts                 # Utility functions
+│   ├── utils.ts                 # Utility functions (cn, getInitials)
 │   ├── types.ts                 # TypeScript type definitions
 │   ├── mock-data.ts             # Mock data generation with AI projections
 │   ├── export-utils.ts          # CSV/PDF export functions
@@ -172,7 +302,7 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 **Navigation Flow:**
 - Automatic redirect from root to login page
 - 1-second loading simulation before dashboard access
-- Logout button in top navbar for easy testing
+- User profile dropdown with logout functionality
 - Seamless routing with Next.js App Router
 
 ### 🤖 AI Assistant System
@@ -185,7 +315,7 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 - Typing animations and loading states
 
 **Smart Responses:**
-- **Overview Page**: Revenue, users, conversions, growth summaries
+- **Dashboard Page**: Revenue, users, conversions, growth summaries
 - **Reports Page**: Campaign performance, trends, optimization suggestions
 - **Preset Prompts**: Quick access to common analytics questions
 - **HTML Rendering**: Bold text and formatting support
@@ -193,7 +323,7 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 ### 📊 Advanced Chart System
 
 **AI Projection Features:**
-- **Linear Regression**: 30-day historical data analysis
+- **Linear Regression**: 30-day historical data analysis (simulated)
 - **Predictive Lines**: Purple dotted lines with glow effects
 - **Smooth Connections**: Blended projection points for continuity
 - **Custom Tooltips**: Projection-specific information display
