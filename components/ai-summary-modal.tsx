@@ -33,7 +33,7 @@ export function AISummaryModal({ isOpen, onClose }: AISummaryModalProps) {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Detect current page
-  const isOverviewPage = pathname === '/';
+  const isOverviewPage = pathname === '/dashboard';
   const isReportsPage = pathname === '/reports';
   const isManageCampaignsPage = pathname === '/manage-campaigns';
   const currentPage = isOverviewPage ? 'overview' : isReportsPage ? 'reports' : isManageCampaignsPage ? 'manage-campaigns' : 'unknown';
