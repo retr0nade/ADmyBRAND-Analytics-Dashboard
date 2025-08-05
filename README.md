@@ -546,7 +546,6 @@ If you have any questions or need help:
 
 - Create an issue on GitHub
 - Check the documentation
-- Join our community discussions
 
 ---
 
