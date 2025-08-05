@@ -35,7 +35,8 @@ export function AISummaryModal({ isOpen, onClose }: AISummaryModalProps) {
   // Detect current page
   const isOverviewPage = pathname === '/';
   const isReportsPage = pathname === '/reports';
-  const currentPage = isOverviewPage ? 'overview' : isReportsPage ? 'reports' : 'unknown';
+  const isManageCampaignsPage = pathname === '/manage-campaigns';
+  const currentPage = isOverviewPage ? 'overview' : isReportsPage ? 'reports' : isManageCampaignsPage ? 'manage-campaigns' : 'unknown';
 
   // Scroll to bottom of chat
   const scrollToBottom = () => {
@@ -98,6 +99,18 @@ export function AISummaryModal({ isOpen, onClose }: AISummaryModalProps) {
            break;
          case 'improvements':
            response = `🚀 <strong>Strategic Recommendations</strong>\n\n<strong>Immediate Actions:</strong>\n• Scale Summer Sale Campaign budget by 20%\n• Optimize Brand Awareness ad copy (CTR below average)\n• Implement lookalike audiences for Product Launch\n\n<strong>Long-term Strategy:</strong>\n• Develop seasonal campaign calendar\n• Implement advanced attribution modeling\n• Create automated bid optimization rules\n• Set up real-time performance alerts`;
+           break;
+       }
+     } else if (currentPage === 'manage-campaigns') {
+       switch (requestType) {
+         case 'summary':
+           response = `📊 <strong>Campaign Management Summary</strong>\n\nYour campaign management overview:\n• <strong>Total Campaigns</strong>: 15 campaigns across all statuses\n• <strong>Active Campaigns</strong>: 8 currently running\n• <strong>Paused Campaigns</strong>: 4 temporarily stopped\n• <strong>Completed Campaigns</strong>: 3 finished campaigns\n• <strong>Average Budget</strong>: ₹45K per campaign\n• <strong>Total Spent</strong>: ₹675K across all campaigns\n\nCampaign management is well-organized with good status tracking.`;
+           break;
+         case 'best-campaigns':
+           response = `🔥 <strong>Top Campaigns by Performance</strong>\n\n<strong>Best Performing Campaigns:</strong>\n\n1. <strong>Summer Sale Campaign</strong>\n   - Status: Active | Budget: ₹50K\n   - ROI: +32% | High engagement\n   - Recommendation: Scale budget\n\n2. <strong>Brand Awareness</strong>\n   - Status: Active | Budget: ₹40K\n   - ROI: +28% | Consistent performance\n   - Recommendation: Continue current strategy\n\n3. <strong>Product Launch</strong>\n   - Status: Active | Budget: ₹35K\n   - ROI: +24% | Growing steadily\n   - Recommendation: Optimize targeting`;
+           break;
+         case 'improvements':
+           response = `💡 <strong>Campaign Management Suggestions</strong>\n\n<strong>Immediate Actions:</strong>\n• <strong>Reactivate</strong> paused campaigns with high potential\n• <strong>Increase budget</strong> for top-performing campaigns\n• <strong>Optimize</strong> underperforming campaigns\n• <strong>Review</strong> completed campaigns for insights\n\n<strong>Management Tips:</strong>\n• Set up automated status alerts\n• Implement budget pacing rules\n• Create campaign templates for consistency\n• Schedule regular performance reviews`;
            break;
        }
      }

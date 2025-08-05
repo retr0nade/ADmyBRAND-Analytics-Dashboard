@@ -7,10 +7,12 @@ import { useNotifications } from '@/lib/notification-context';
 import type { Campaign } from '@/lib/types';
 
 interface PageHeaderProps {
+  title?: string;
+  description?: string;
   campaigns?: Campaign[];
 }
 
-export function PageHeader({ campaigns }: PageHeaderProps) {
+export function PageHeader({ title, description, campaigns }: PageHeaderProps) {
   const { addNotification } = useNotifications();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -68,14 +70,16 @@ export function PageHeader({ campaigns }: PageHeaderProps) {
     });
   };
 
+
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Marketing Analytics
+          {title || 'Marketing Analytics'}
         </h1>
         <p className="text-muted-foreground mt-2">
-          Track your campaigns performance and optimize your marketing strategy
+          {description || 'Track your campaigns performance and optimize your marketing strategy'}
         </p>
       </div>
       

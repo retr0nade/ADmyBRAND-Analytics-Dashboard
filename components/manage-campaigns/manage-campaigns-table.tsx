@@ -179,7 +179,8 @@ export function ManageCampaignsTable({
                           variant="ghost"
                           size="sm"
                           onClick={() => onToggleStatus(campaign.id)}
-                          className="h-8 w-8 p-0"
+                          disabled={campaign.status === 'completed'}
+                          className={`h-8 w-8 p-0 ${campaign.status === 'completed' ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                           {campaign.status === 'active' ? (
                             <Pause className="h-4 w-4" />
@@ -187,7 +188,7 @@ export function ManageCampaignsTable({
                             <Play className="h-4 w-4" />
                           )}
                           <span className="sr-only">
-                            {campaign.status === 'active' ? 'Pause' : 'Resume'} campaign
+                            {campaign.status === 'active' ? 'Pause' : campaign.status === 'completed' ? 'Completed' : 'Resume'} campaign
                           </span>
                         </Button>
                         
@@ -205,14 +206,17 @@ export function ManageCampaignsTable({
                             </DropdownMenuItem>
                             <DropdownMenuItem 
                               onClick={() => onToggleStatus(campaign.id)}
-                              className="text-orange-600"
+                              disabled={campaign.status === 'completed'}
+                              className={`${campaign.status === 'completed' ? 'text-muted-foreground cursor-not-allowed' : 'text-orange-600'}`}
                             >
                               {campaign.status === 'active' ? (
                                 <Pause className="mr-2 h-4 w-4" />
+                              ) : campaign.status === 'completed' ? (
+                                <Play className="mr-2 h-4 w-4 opacity-50" />
                               ) : (
                                 <Play className="mr-2 h-4 w-4" />
                               )}
-                              {campaign.status === 'active' ? 'Pause' : 'Resume'}
+                              {campaign.status === 'active' ? 'Pause' : campaign.status === 'completed' ? 'Completed' : 'Resume'}
                             </DropdownMenuItem>
                             <DropdownMenuItem 
                               onClick={() => handleDelete(campaign.id)}

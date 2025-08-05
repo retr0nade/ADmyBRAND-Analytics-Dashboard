@@ -9,7 +9,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { 
   TrendingUp, 
   TrendingDown, 
-  Play, 
   Pause, 
   Target,
   MousePointer,
@@ -131,10 +130,7 @@ export function CampaignInsights({
     }
   };
 
-  const handleReactivate = (campaignId: string) => {
-    console.log(`Reactivating campaign: ${campaignId}`);
-    // In a real app, this would trigger an API call to reactivate the campaign
-  };
+
 
   if (campaignsWithInsights.length === 0) {
     return (
@@ -190,17 +186,6 @@ export function CampaignInsights({
                         </Badge>
                       </div>
                     </div>
-                    {campaign.status === 'paused' && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleReactivate(campaign.id)}
-                        className="text-xs"
-                      >
-                        <Play className="h-3 w-3 mr-1" />
-                        Reactivate
-                      </Button>
-                    )}
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
