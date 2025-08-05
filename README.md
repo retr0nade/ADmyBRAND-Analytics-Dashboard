@@ -5,6 +5,13 @@ A modern, responsive analytics dashboard built with Next.js 14, TypeScript, and 
 
 ## ✨ Features
 
+### 🔐 Authentication & Navigation
+- 🔑 **Mock Login System**: Beautiful login page with modern UI design
+- 🎨 **Glassmorphism Design**: Subtle gradient backgrounds with blur effects
+- ⚡ **Smooth Animations**: Framer Motion powered transitions and loading states
+- 🔄 **Auto-redirect**: Seamless navigation from login to dashboard
+- 🚪 **Logout Functionality**: Easy access to return to login page
+
 ### 🚀 Core Analytics
 - 📊 **Real-time Analytics**: Live metrics updates with smooth animations
 - 📈 **Interactive Charts**: Line, bar, and donut charts with custom tooltips
@@ -105,7 +112,11 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 ```
 ├── app/
 │   ├── layout.tsx              # Root layout with providers
-│   ├── page.tsx               # Main dashboard page
+│   ├── page.tsx               # Main page (redirects to login)
+│   ├── login/
+│   │   └── page.tsx           # Beautiful login page
+│   ├── dashboard/
+│   │   └── page.tsx           # Dashboard page (after login)
 │   ├── reports/
 │   │   └── page.tsx           # Reports page
 │   └── globals.css            # Global styles and CSS variables
@@ -147,6 +158,22 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 ```
 
 ## 🎯 Key Features in Detail
+
+### 🔐 Login System
+
+**Beautiful Login Page:**
+- Modern glassmorphism design with gradient backgrounds
+- Smooth Framer Motion animations on page load
+- Password visibility toggle with eye icon
+- Loading spinner during authentication simulation
+- Responsive design for all device sizes
+- Dark/light mode support matching dashboard theme
+
+**Navigation Flow:**
+- Automatic redirect from root to login page
+- 1-second loading simulation before dashboard access
+- Logout button in top navbar for easy testing
+- Seamless routing with Next.js App Router
 
 ### 🤖 AI Assistant System
 

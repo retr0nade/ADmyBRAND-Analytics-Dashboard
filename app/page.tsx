@@ -1,12 +1,14 @@
 "use client";
 
-import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
-import { DashboardContent } from '@/components/dashboard/dashboard-content';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <DashboardLayout>
-      <DashboardContent />
-    </DashboardLayout>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/login');
+  }, [router]);
+
+  return null;
 }
