@@ -223,7 +223,7 @@ pnpm dev
 ```
 
 4. **Open your browser:**
-Navigate to [http://localhost:3000](http://localhost:3000)
+Navigate to [admybrand-analytics-dashboard-iota.vercel.app](admybrand-analytics-dashboard-iota.vercel.app)
 
 **Demo Credentials**: Any email/password combination will work for login
 
@@ -416,17 +416,9 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### Vercel 
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy with default settings
-
-### Netlify
-
-1. Connect your GitHub repository
-2. Set build command: `npm run build`
-3. Set publish directory: `.next`
+Visit this link to view the dashboard: [admybrand-analytics-dashboard-iota.vercel.app](admybrand-analytics-dashboard-iota.vercel.app)
 
 ### Manual Build
 
