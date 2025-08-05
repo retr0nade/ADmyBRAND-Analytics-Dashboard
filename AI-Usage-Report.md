@@ -14,7 +14,7 @@ This document outlines how various AI-assisted tools were used in the developmen
 
 ---
 
-### 💬 ChatGPT (OpenAI)
+### 💬 [ChatGPT](https://chatgpt.com) (OpenAI)
 - **Usage**: Prompt engineering, brainstorming, and ideation
 - **Purpose**:
   - Designed prompts to guide AI feature implementation
