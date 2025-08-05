@@ -139,131 +139,131 @@ Navigate to link provided in the terminal
 ### 🔐 **Authentication & User Management**
 
 #### **Beautiful Login Experience**
-- **🎨 Glassmorphism Design**: Modern backdrop blur with gradient backgrounds
-- **⚡ Smooth Animations**: Framer Motion powered page transitions and form interactions
-- **👁️ Password Toggle**: Eye icon to show/hide password with smooth transitions
-- **⏳ Loading States**: 1-second authentication simulation with spinner animation
-- **📱 Responsive Design**: Perfect experience on mobile, tablet, and desktop
-- **🌙 Theme Support**: Dark/light mode that matches dashboard theme
-- **🚀 No Validation**: Accepts any credentials for seamless demo experience
+- ** Glassmorphism Design**: Modern backdrop blur with gradient backgrounds
+- ** Smooth Animations**: Framer Motion powered page transitions and form interactions
+- ** Password Toggle**: Eye icon to show/hide password with smooth transitions
+- ** Loading States**: 1-second authentication simulation with spinner animation
+- ** Responsive Design**: Perfect experience on mobile, tablet, and desktop
+- ** Theme Support**: Dark/light mode that matches dashboard theme
+- ** No Validation**: Accepts any credentials for seamless demo experience
 
 #### **Smart Navigation Flow**
-- **🔄 Auto-redirect**: Root page automatically redirects to login
-- **⚡ Fast Loading**: 1-second loading simulation before dashboard access
-- **👤 User Profile**: Dynamic avatar with user initials and dropdown menu
-- **🚪 Logout Functionality**: Easy access from top navbar with profile dropdown
-- **🛣️ Seamless Routing**: Next.js App Router for smooth page transitions
+- ** Auto-redirect**: Root page automatically redirects to login
+- ** Fast Loading**: 1-second loading simulation before dashboard access
+- ** User Profile**: Dynamic avatar with user initials and dropdown menu
+- ** Logout Functionality**: Easy access from top navbar with profile dropdown
+- ** Seamless Routing**: Next.js App Router for smooth page transitions
 
 ---
 
 ### 🤖 **AI-Powered Analytics System**
 
 #### **Intelligent Chat Assistant**
-- **🤖 Floating Widget**: Fixed bottom-right circular button with robot icon
-- **📱 Modal Expansion**: Smooth Framer Motion modal with full chat interface
-- **🧠 Context-Aware**: Different responses based on current page location
-- **💬 Smart Responses**:
+- ** Floating Widget**: Fixed bottom-right circular button with robot icon
+- ** Modal Expansion**: Smooth Framer Motion modal with full chat interface
+- ** Context-Aware**: Different responses based on current page location
+- ** Smart Responses**:
   - **Dashboard**: Revenue, users, conversions, growth summaries
   - **Reports**: Campaign performance, trends, optimization suggestions
-- **⚡ Preset Prompts**: Quick access to common analytics questions
-- **🎨 HTML Rendering**: Rich text formatting with bold text support
-- **⏳ Typing Animations**: Realistic chat experience with loading states
-- **📚 Message History**: Maintains conversation context throughout session
+- ** Preset Prompts**: Quick access to common analytics questions
+- ** HTML Rendering**: Rich text formatting with bold text support
+- ** Typing Animations**: Realistic chat experience with loading states
+- ** Message History**: Maintains conversation context throughout session
 
 #### **Advanced AI Projections**
-- **📈 Linear Regression**: 30-day historical data analysis (simulated)
-- **🔮 Predictive Lines**: Purple dotted lines with glow effects
-- **🔄 Smooth Connections**: Blended projection points for visual continuity
-- **💡 Custom Tooltips**: Projection-specific information on hover
-- **🎛️ Smart Date Logic**:
+- ** Linear Regression**: 30-day historical data analysis (simulated)
+- ** Predictive Lines**: Purple dotted lines with glow effects
+- ** Smooth Connections**: Blended projection points for visual continuity
+- ** Custom Tooltips**: Projection-specific information on hover
+- ** Smart Date Logic**:
   - **Historical View** (both dates ≤ present): AI projection disabled
   - **Mixed View** (start ≤ present, end > present): All toggles available
   - **Future View** (both dates > present): Only AI projection shown
-- **🎚️ Auto Toggle States**: Intelligent control based on date selection
+- ** Auto Toggle States**: Intelligent control based on date selection
 
 ---
 
 ### 📊 **Advanced Data Visualization**
 
 #### **Interactive Chart System**
-- **📈 Revenue Chart**: Line chart with AI projection lines and glow effects
-- **📊 Conversions Chart**: Bar chart with custom tooltips and animations
-- **🥧 User Distribution**: Donut chart showing user demographics
-- **🎛️ Smart Toggle Controls**: Individual visibility toggles for each data series
-- **📅 Historical/Future Logic**: Automatic toggle states based on date selection
-- **🎨 Custom Styling**: Brand-consistent colors and responsive design
-- **🖱️ Interactive Elements**: Hover effects, tooltips, and smooth animations
+- ** Revenue Chart**: Line chart with AI projection lines and glow effects
+- ** Conversions Chart**: Bar chart with custom tooltips and animations
+- ** User Distribution**: Donut chart showing user demographics
+- ** Smart Toggle Controls**: Individual visibility toggles for each data series
+- ** Historical/Future Logic**: Automatic toggle states based on date selection
+- ** Custom Styling**: Brand-consistent colors and responsive design
+- ** Interactive Elements**: Hover effects, tooltips, and smooth animations
 
 #### **Real-time Data Updates**
-- **⏰ Auto-refresh**: Data updates every 10 seconds with smooth animations
-- **🔄 Loading Skeletons**: Beautiful loading states during data fetch
-- **⚡ Performance Optimized**: React.memo for efficient rendering
-- **📱 Responsive Charts**: Adapts to container size and screen dimensions
+- ** Auto-refresh**: Data updates every 10 seconds with smooth animations
+- ** Loading Skeletons**: Beautiful loading states during data fetch
+- ** Performance Optimized**: React.memo for efficient rendering
+- ** Responsive Charts**: Adapts to container size and screen dimensions
 
 ---
 
 ### 🔔 **Advanced Notification System**
 
 #### **Global Context Management**
-- **🌐 React Context**: App-wide notification management
-- **⚡ Real-time Updates**: Instant notification delivery
-- **🔢 Unread Count**: Tracks unread notifications with badge
-- **🎨 Multiple Types**: Info, success, warning, and error notifications
-- **⏰ Time Stamps**: "Time ago" formatting for notification timestamps
+- ** React Context**: App-wide notification management
+- ** Real-time Updates**: Instant notification delivery
+- ** Unread Count**: Tracks unread notifications with badge
+- ** Multiple Types**: Info, success, warning, and error notifications
+- ** Time Stamps**: "Time ago" formatting for notification timestamps
 
 #### **Interactive Features**
-- **🖱️ Click-outside-to-close**: Intuitive interaction patterns
-- **✅ Mark as Read/Unread**: Full notification management
-- **🗑️ Remove Individual**: Delete specific notifications
-- **🧹 Clear All**: Bulk notification management
-- **📱 Mobile Optimized**: Touch-friendly interaction design
+- ** Click-outside-to-close**: Intuitive interaction patterns
+- ** Mark as Read/Unread**: Full notification management
+- ** Remove Individual**: Delete specific notifications
+- ** Clear All**: Bulk notification management
+- ** Mobile Optimized**: Touch-friendly interaction design
 
 #### **Download Integration**
-- **📄 CSV Export Alerts**: Automatic success notifications with file info
-- **📋 PDF Export Alerts**: Professional report completion notifications
-- **🔗 Action Buttons**: Quick access to download management
-- **⚠️ Error Handling**: Graceful failure notifications with retry options
+- ** CSV Export Alerts**: Automatic success notifications with file info
+- ** PDF Export Alerts**: Professional report completion notifications
+- ** Action Buttons**: Quick access to download management
+- ** Error Handling**: Graceful failure notifications with retry options
 
 ---
 
 ### 📁 **Professional Export System**
 
 #### **CSV Export Capabilities**
-- **📊 Campaign Data**: Comprehensive campaign information export
-- **📅 Custom Date Ranges**: Filtered exports based on selected dates
-- **📋 Formatted Headers**: Professional column headers and data structure
-- **📁 Date-stamped Filenames**: Organized file naming with date ranges
-- **💻 Client-side Generation**: No server dependency, instant downloads
+- ** Campaign Data**: Comprehensive campaign information export
+- ** Custom Date Ranges**: Filtered exports based on selected dates
+- ** Formatted Headers**: Professional column headers and data structure
+- ** Date-stamped Filenames**: Organized file naming with date ranges
+- ** Client-side Generation**: No server dependency, instant downloads
 
 #### **PDF Export System**
-- **📄 Professional Reports**: jsPDF-generated reports with custom styling
-- **📈 Summary Statistics**: Key metrics and performance indicators
-- **📊 Campaign Comparison Tables**: Detailed campaign analysis
-- **🎨 Custom Branding**: Consistent with dashboard design language
-- **🔔 Download Notifications**: Automatic success alerts
+- ** Professional Reports**: jsPDF-generated reports with custom styling
+- ** Summary Statistics**: Key metrics and performance indicators
+- ** Campaign Comparison Tables**: Detailed campaign analysis
+- ** Custom Branding**: Consistent with dashboard design language
+- ** Download Notifications**: Automatic success alerts
 
 #### **Integration Features**
-- **📞 Notification Callbacks**: Success alerts for all exports
-- **⚠️ Error Handling**: Graceful failure handling with user feedback
-- **⏳ Loading States**: Visual feedback during export process
-- **📁 File Naming**: Intelligent naming with date ranges and filters
+- ** Notification Callbacks**: Success alerts for all exports
+- ** Error Handling**: Graceful failure handling with user feedback
+- ** Loading States**: Visual feedback during export process
+- ** File Naming**: Intelligent naming with date ranges and filters
 
 ---
 
 ### 🎨 **Theme & Design System**
 
 #### **Dark/Light Mode**
-- **🌙 System Preference Detection**: Automatic theme based on OS settings
-- **🔄 Smooth Transitions**: No flicker during theme changes
-- **🎨 Optimized Colors**: Perfect contrast for both themes
-- **💾 Persistent Selection**: Remembers user's theme choice
-- **⚡ Instant Switching**: Real-time theme updates across all components
+- ** System Preference Detection**: Automatic theme based on OS settings
+- ** Smooth Transitions**: No flicker during theme changes
+- ** Optimized Colors**: Perfect contrast for both themes
+- ** Persistent Selection**: Remembers user's theme choice
+- ** Instant Switching**: Real-time theme updates across all components
 
 #### **Responsive Design Architecture**
-- **📱 Mobile** (<768px): Collapsible sidebar, stacked cards, touch-optimized
-- **📱 Tablet** (768-1024px): Optimized grid layouts, balanced spacing
-- **🖥️ Desktop** (>1024px): Full sidebar, multi-column layouts, hover effects
-- **👆 Touch-friendly**: Optimized for touch interactions and gestures
+- ** Mobile** (<768px): Collapsible sidebar, stacked cards, touch-optimized
+- ** Tablet** (768-1024px): Optimized grid layouts, balanced spacing
+- ** Desktop** (>1024px): Full sidebar, multi-column layouts, hover effects
+- ** Touch-friendly**: Optimized for touch interactions and gestures
 
 ---
 
